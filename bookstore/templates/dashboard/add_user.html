@@ -1,0 +1,162 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% load static %}
+
+{% block body %}
+    <div id="content-wrapper">
+
+        <div class="container-fluid">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">CRUD</a>
+                </li>
+                <li class="breadcrumb-item active">Add</li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    Crud Add
+                </div>
+                <div class="card-body">
+                  <form class="form-horizontal" action="{% url 'create_user' %}" method="POST" onsubmit="return validate()">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                   
+                                   First Name <input type="text" class="form-control" name="first_name" placeholder="First Name" id="fn">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    Last Name<input type="text" class="form-control" name="last_name" placeholder="Last Name" id="ln">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    Username<input type="text" class="form-control" name="username" placeholder="Username" id="un">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    Email <input class="form-control" type="tel" name="email" placeholder="Email" id="em">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                               <div class="form-label-group">
+                                Password <input type="password" class="form-control" name="password" placeholder="Password" id="pass">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <br>
+                                     <select class="w3-select w3-border" name="userType" style="height:40px;">
+  <option value="{{ choice.2 }}">Choose User Role</option>
+ 
+<option value="{{ choice.2 }}"> student</option>
+  <option value="{{ choice.3 }}"> Admin</option>
+  <option value="{{ choice.4 }}"> Librarian</option>
+
+</select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">Submit &nbsp;&nbsp;&nbsp;<span></span></button>
+                </form>
+
+
+                <script type="text/javascript">
+
+                    function validate(){
+                         var name=document.getElementById('fn').value;
+                         var pattern1 = /^[a-zA-Z]+$/;
+                        if(name=="" || name=="null"){
+                            alert("please enter first name");
+                            document.getElementById('fn').focus();
+                            return false;}
+                        
+                        else if(!name.match(pattern1)){
+                            alert("please enter first name");
+                            document.getElementById('fn').focus();
+                            return false;
+                        }
+                        var lname=document.getElementById('ln').value;
+                         var pattern2 = /^[a-zA-Z]+$/;
+                        if(lname=="" || lname=="null"){
+                            alert("please enter last name");
+                            document.getElementById('ln').focus();
+                            return false;}
+                        
+                        else if(!lname.match(pattern2)){
+                            alert("please enter last name");
+                            document.getElementById('ln').focus();
+                            return false;
+                        }
+
+                        var uname=document.getElementById('un').value;
+                        var pattern3 = /^[a-zA-Z]+$/;
+                       if(uname=="" || uname=="null"){
+                           alert("please enter username");
+                           document.getElementById('un').focus();
+                           return false;}
+                       
+                       else if(!uname.match(pattern3)){
+                           alert("please enter username");
+                           document.getElementById('un').focus();
+                           return false;
+                       }
+
+                       var emailid=document.getElementById("em").value;
+                       atpos=emailid.indexOf("@");
+                       dotpos=emailid.lastIndexOf(".");
+                       if (emailid=="" || emailid=="null"){
+                         alert("please enter your email");
+                         document.getElementById('em').focus();
+                       if( atpos<1 || (dotpos-atpos<2)){
+                         alert("please enter valid email id");
+                         document.getElementById("em").focus();
+                         return false;
+                         }
+                       }
+                       var password=document.getElementById('pass').value;
+                           var pattern4 =/^(?=.{8,})/;
+                           if(!password.match(pattern4)){
+                             alert("The password must be eight characters or longer ");
+                       document.getElementById("pass").focus();
+                       return false;
+                   }
+
+
+                    }
+
+                </script>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        $("#id_username").attr("placeholder", "Enter Username");
+        $("#id_password").attr("placeholder", "Enter Password");
+    </script>
+{% endblock %}

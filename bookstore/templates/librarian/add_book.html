@@ -1,0 +1,116 @@
+{% extends 'librarian/base.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="col-md-8 col-sm-5 col-xs-5">
+<div id="content" class="p-6 p-md-5 pt-5">
+    <div class="col-md-12 col-sm-12 col-xs-10">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table text-primary"></i>
+                    Fill In Information Of Books
+                </div>
+                <div class="card-body">
+               <form action="{% url 'labook' %}" method="POST" enctype="multipart/form-data" onsubmit="return validate()">
+                {% csrf_token %}
+        <div class="form-group">
+                <div class="col"><input type="text" class="form-control" name="title" placeholder="Book Title" id="bt"></div>
+        </div>
+        <div class="form-group">
+                <div class="col"><input type="text" class="form-control" name="author" placeholder="Author" id="au"></div>                 
+        </div>
+
+         <div class="form-group">
+                <div class="col"><input type="text" class="form-control" name="publisher" placeholder="Publisher" id="pb"></div>
+        </div>
+
+        <div class="form-group">
+                <div class="col"><input type="text" class="form-control" name="year" placeholder="Publication Year" id="py"></div>
+        </div>
+
+      <div class="form-group">
+                <div class="col"><input type="text" class="form-control" name="desc" placeholder="Book Description" id="bd"></div>
+        </div>
+
+
+        <div class="form-group">
+                <div class="col"><label>Choose Book Cover</label>
+                    <input type="file" id="myFile" name="cover" placeholder="Report Attachment" enctype="multipart/form-data"></div>
+        </div>
+
+        <div class="form-group">
+                <div class="col"><label>Choose PDF Book</label>
+                    <input type="file" id="mypdf" name="pdf" placeholder="Report Attachment" enctype="multipart/form-data"></div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg btn-block" href="">Add Now</button>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+		
+        function validate()
+        {
+          var booktitle=document.getElementById('bt').value;
+          if(booktitle=="" || booktitle=="null"){
+            alert("please enter book title");
+            document.getElementById('bt').focus();
+            return false;}
+          var author=document.getElementById('au').value;
+              if(author=="" || author=="null"){
+                alert("please enter author name ");
+                document.getElementById("au").focus();
+                return false;
+            }
+            var publisher=document.getElementById('pb').value;
+            if(publisher=="" || publisher=="null"){
+              alert("please enter publisher name ");
+              document.getElementById("pb").focus();
+              return false;}
+              var year=document.getElementById('py').value;
+              var yearpattern=/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+              if(!year.match(yearpattern)){
+                alert("please enter valid publication year ");
+                document.getElementById("py").focus();
+                return false;}
+
+                var description=document.getElementById('bd').value;
+                if(description=="" || description=="null"){
+                  alert("missing description of books ");
+                  document.getElementById("bd").focus();
+                  return false;
+              }
+
+              var coverimg=document.getElementById('myFile').value;
+               var imgpattern=/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i;
+              if(!coverimg.match(imgpattern)){
+                alert("upload cover page in image format ");
+                document.getElementById("myFile").focus();
+                return false;
+            }
+
+            var pdffile=document.getElementById('mypdf').value;
+            var pdfpattern =/\.pdf$/i;
+           if(!pdffile.match(pdfpattern)){
+             alert("upload pdf file");
+             document.getElementById("mypdf").focus();
+             return false;
+         }
+
+            
+
+          
+        }
+      </script>
+
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

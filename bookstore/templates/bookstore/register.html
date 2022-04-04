@@ -1,0 +1,238 @@
+{% load static %}
+
+
+<!-- Custom styles for this template-->
+    <link href="{% static 'bookapp/css/login.css' %}" rel="stylesheet">
+    <link href="{% static 'bookstore/css/bootstrap/bootstrap.min.js' %}" rel="stylesheet">
+    <link href="{% static 'bookstore/js/login.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+
+    
+<head>
+	<title>Dashboard</title>
+</head>
+<!--Coded with love by Mutiullah Samim-->
+<body> 
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+
+<div class="container">
+<br> 
+
+
+		 <h1 style="color: white" class="text-md-center"><span class="g"></span><span class="o"></span><span class="o1">Librariy Management</span> <span class="g"></span><span class="l"></span><span class="e"></span></h1>
+
+<div class="row">
+	<aside class="col-sm-4">
+	</aside> <!-- col.// -->
+
+	<aside class="col-sm-4">
+		<h1 style="color: rgb(31, 31, 29); font-weight: bold; font-size: 30px" class="text-md-center"><span class="g"></span><span class="o"></span><span class="o1"></span>Librariy Management<span class="g"></span><span class="l"></span><span class="e"></span></h1>
+		<br>
+<div class="card">
+<article class="card-body" style="padding-top: 0px">
+<div class="d-flex justify-content-center">
+
+
+
+
+	<div class="container">
+  <div class="d-flex justify-content-center h-100 ">
+    <div class="card">
+      <div class="card-header">
+        <center><h3 style="color:rgb(17, 6, 6)">Register Here</h3></center>
+        <div class="d-flex justify-content-end">
+          <span><i class="fab fa-user"></i></span>
+        </div>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="{% url 'register' %}" onsubmit="return validate()">
+          {% csrf_token %}
+
+          {% if msg%}
+          <div class="alert alert-danger" role="alert">
+            {{msg}}
+          </div>
+          {% endif %}
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="first name" name="fname" id="fn">
+            
+          </div>
+
+
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="last name" name="lname" id="ln">
+            
+          </div>
+
+
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="username" name="username" id="en">
+            
+          </div>
+
+
+
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-edit"></i></span>
+            </div>
+            <input type="email" class="form-control" placeholder="email" name="email" id="em" >
+          </div>
+          
+           <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control" placeholder="password" name="password" id="pass" >
+          </div>
+          <div class="form-group">
+            <a href="{% url 'login' %}"><input name="sign-up" value="Login" class="btn float-right login_btn" ></a>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" name="sign-up" value="Register" class="btn float-left login_btn">
+          </div>
+        </form>
+
+
+
+
+
+        <script type="text/javascript">
+		
+          function validate()
+          {
+
+
+
+            var fname=document.getElementById('fn').value;
+            var pattern = /^[a-z]+$/;
+     if(fname=="" || fname=="null"){
+       alert("please enter your first name");
+       document.getElementById('fn').focus();
+       return false;}
+       else if(!fname.match(pattern))
+     {
+     
+       alert("please enter only latter");
+       return false;
+     }
+
+
+
+     var fname=document.getElementById('ln').value;
+     var pattern = /^[a-z]+$/;
+if(lname=="" || lname=="null"){
+alert("please enter your last name");
+document.getElementById('ln').focus();
+return false;}
+else if(!lname.match(pattern))
+{
+
+alert("please enter only latter");
+return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+            var name=document.getElementById('en').value;
+                   var pattern = /^[a-z]+$/;
+            if(name=="" || name=="null"){
+              alert("please enter your name");
+              document.getElementById('en').focus();
+              return false;}
+              else if(!name.match(pattern))
+            {
+            
+              alert("please enter only latter");
+              return false;
+            }
+            var emailid=document.getElementById("em").value;
+            atpos=emailid.indexOf("@");
+            dotpos=emailid.lastIndexOf(".");
+            if (emailid=="" || emailid=="null"){
+              alert("please enter your email");
+              document.getElementById('em').focus();
+            if( atpos<1 || (dotpos-atpos<2)){
+              alert("please enter valid email id");
+              document.getElementById("em").focus();
+              return false;
+              }
+            }
+            var password=document.getElementById('pass').value;
+		        var pattern=/^(?=.{8,})/;
+		        if(!password.match(pattern)){
+		      	alert("The password must be eight characters or longer ");
+            document.getElementById("pass").focus();
+            return false;
+		}
+            
+          }
+        </script>
+      
+
+
+
+   </div>
+     
+    </div>
+  </div>
+</div>
+		
+
+
+
+
+
+
+</article>
+</div> <!-- card.// -->
+
+
+
+
+	</aside> <!-- col.// -->
+	<aside class="col-sm-4">
+	</aside> <!-- col.// -->
+</div> <!-- row.// -->
+
+</div> 
+
+
+                            
+
+</body>
+</html>
+

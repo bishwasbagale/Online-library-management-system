@@ -1,0 +1,173 @@
+{% extends 'dashboard/base.html' %}
+
+{% block body %}
+
+        <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
+            
+                <div id="content-wrapper">
+        <div class="container-fluid">
+          
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    List Of Users
+                    <a  class="btn btn-sm btn-success" href="{% url 'create_user_form' %}" style="padding: 8px; float: right; background-color: green; color: white;">Add User</a>
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+
+
+
+ <!-- Navbar Search -->
+ <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="{% url 'usearch' %}" >
+  <div class="input-group">
+      <input type="text" class="form-control" name="query" id="myInput" onkeyup="myFunction()" placeholder="Search for users.." aria-label="Search" aria-describedby="basic-addon2" >
+      
+     
+      <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search"></i>
+          </button>
+      </div>
+  </div>
+</form>
+<br>
+<br>
+
+
+
+
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Username</th>
+                                <th>User Role</th>
+                                <th>Email</th>
+                                <th>View</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                        {% if users %}
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{% if user.is_student == True  %}
+                                      <p>student</p>
+                                    {% elif user.is_admin == True or user.is_superuser == True %}
+                                      <p>Admin</p>
+                                    {% else %}
+                                    <p>Librarian</p> 
+                                      {% endif %}
+                                    </td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                <a href="{% url 'alvuser' user.pk %}"><button type="button" class="btn btn-primary"> View</button></a>
+                 </td>
+         
+
+
+        <td>
+          <a href="{% url 'aeuser' user.pk %}"><button type="button" class="btn btn-warning"> Edit</button></a>
+  </td>
+
+
+        <td>
+          <a href="{% url 'aduser' user.pk %}"><button type="button" class="btn btn-danger"> Delete</button></a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                            </tbody>
+                        </table>
+
+
+
+
+                        
+                        <script>
+                          function myFunction() {
+                            // Declare variables
+                            var input, filter, table, tr, td, i, txtValue;
+                            input = document.getElementById("myInput");
+                            filter = input.value.toUpperCase();
+                            table = document.getElementById("myTable");
+                            tr = document.getElementsByTagName("tr");
+                          
+                            // Loop through all table rows, and hide those who don't match the search query
+                            for (i = 0; i < tr.length; i++) {
+                              td = tr[i].getElementsByTagName("td")[1];
+                              if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                  tr[i].style.display = "";
+                                } else {
+                                  tr[i].style.display = "none";
+                                }
+                              }
+                            }
+                          }
+                          </script>
+                          <!-- {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %} -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  </tbody>
+</table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block extrascripts %}
+  <script type="text/javascript">
+      $(function () {
+          // Hide message
+          $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+              $(".alert").slideUp(500);
+          });
+      });
+  </script>
+{% endblock extrascripts %}
